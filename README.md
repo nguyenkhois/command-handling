@@ -7,6 +7,7 @@ You can view [Commander.js](https://github.com/tj/commander.js) if you are think
 * [Syntax](#syntax)
 * [Methods](#methods)
 * [Data structures](#data-structures)
+* [Using](#using)
 * [Examples](#examples)
 * [Thank you!](#thank-you)
 
@@ -23,13 +24,15 @@ You can view [Commander.js](https://github.com/tj/commander.js) if you are think
 
 ## Data structures
 
-An object is returned when you call method `.parse(process.argv)`. View examples for more detail.
+An object is returned when you call method `.parse(process.argv)`. View [examples](#examples) for more detail.
 ```
-{ mainFlag: null,
-  subFlags: [],
-  argument: null,
-  commandLength: 0,
-  unknowns: [] }
+{
+    mainFlag: null,
+    subFlags: [],
+    argument: null,
+    commandLength: 0,
+    unknowns: []
+}
 ```
 
 An array is returned when you call method `.showOptions()`
@@ -50,7 +53,19 @@ An array is returned when you call method `.showOptions()`
 ]
 ```
 
+## Using
+* Step 1: `const { Command } = require('command-handling')`
+* Step 2: `const command = new Command()`
+* Step 3: You can use method chaining for `command`
+    * Option definition: `.option(<flag>, [alias], [description])`
+    * Sub option definition: `.subOption(<mainFlag>, <subFlag>, [description])`
+* Step 4: `.parse(process.argv)` -> It is in the the end of chaining.
+    * You can use also `const result = command.parse(process.argv)`. It returns an object after parsing. You need this object to your coding.
+* Extra: Using method `.showOptions()` to get back all options are defined above when you will coding the help function.
+    * Example: `const options = command.showOptions()`
 ## Examples
+
+__Example 1__
 ```
 const { Command } = require('command-handling');
 const command = new Command();
@@ -68,7 +83,26 @@ const options = command.showOptions();
 console.log(options); // It returns an object array with all options
 ```
 
-View `/example.js` file for more details.
+__Example 2__
+```
+const { Command } = require('command-handling');
+const command = new Command();
+
+command
+    .option("-v", "--version", "View the installed version")
+    .option("-help", "--help", "View the help information")
+    .option("-cf", "--config", "Config for this app")
+    .subOption("-cf", "--set-asset", "Store the asset directory path")
+    .subOption("-cf", "--view-asset", "View the asset directory path");
+
+const result = command.parse(process.argv);
+
+const options = command.showOptions();
+
+console.log(result); // It returns an object after parsing
+
+console.log(options); // It returns an object array with all options
+```
 
 ## Thank you!
 Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.
