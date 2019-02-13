@@ -1,13 +1,13 @@
 {
   "name": "command-handling",
-  "version": "1.0.0-alpha.1.0.0",
+  "version": "1.0.0-alpha.1.0.2",
   "description": "The lightweight Node.js command handling",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Khoi Le",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^5.13.0"
   }
