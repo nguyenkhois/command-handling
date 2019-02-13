@@ -1,5 +1,5 @@
 # command-handling
-The lightweight Node.js command handling that is using for CLI app. This package is also using for this Node.js app [code-template-generator](https://www.npmjs.com/package/code-template-generator).
+The lightweight Node.js command handling that is using for CLI app. This package is also using for [code-template-generator](https://www.npmjs.com/package/code-template-generator).
 
 You can view [Commander.js](https://github.com/tj/commander.js) if you are thinking about a great Node.js CLI app. This package is using for small app that is not has many complex features.
 
