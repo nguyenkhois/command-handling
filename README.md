@@ -34,7 +34,7 @@ The simple command line structure that is used in this package:
     * `command [-option][--alias] [--sub-option]`
     * `command [-option][--alias] [--sub-option] [argument]`
     * `command [--sub-option] [argument]`
-* View examples for [code-template-generator](https://www.npmjs.com/package/code-template-generator) to know more about use cases.
+* View examples for [code-template-generator](https://www.npmjs.com/package/code-template-generator#5-examples) to know more about use cases.
 
 ## Methods
 |Method|Argument|Description|
