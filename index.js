@@ -21,6 +21,11 @@ function Command() {
 
 // Command prototypes
 Command.prototype.option = function (flag, alias, description) {
+    // Error handling
+    if (flag === undefined || flag === null || flag === "") {
+        throw (new Error("Missing parameter: flag"));
+    }
+
     const newOption = new Option(flag, alias, description);
     this.options = this.options.concat([newOption]);
 
@@ -28,6 +33,13 @@ Command.prototype.option = function (flag, alias, description) {
 };
 
 Command.prototype.subOption = function (mainFlag, subFlag, description) {
+    // Error handling
+    if (mainFlag === undefined || mainFlag === null || mainFlag === "") {
+        throw (new Error("Missing parameter: mainFlag"));
+    } else if (subFlag === undefined || subFlag === null || subFlag === "") {
+        throw (new Error("Missing parameter: subFlag"));
+    }
+
     const optionIndex = this.options.findIndexByProperty("flag", mainFlag);
     if (optionIndex > -1) {
         this.options[optionIndex] = {
@@ -46,6 +58,11 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
 };
 
 Command.prototype.parse = function (processArgv) {
+    // Error handling
+    if (processArgv === undefined || processArgv === null || !Array.isArray(processArgv)){
+        throw (new Error("Missing parameter: processArgv. It must be an array"));
+    }
+
     // Get all supported sub flags
     let supportedSubFlags = [];
 
