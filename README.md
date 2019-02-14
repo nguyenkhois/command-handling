@@ -20,7 +20,7 @@ This package is using for small app that is not has many complex features. You c
 `command-handling` help you to analyse the input command line. It catches the arguments that you may be waiting for then you decide what you want to do with the raw data after parsing.
 
 ## Command line structure
-`$ command [option] [sub-option] [argument]`
+`$ command [-option][--alias] [--sub-option] [argument]`
 
 ## Methods
 |Method|Argument|Description|
