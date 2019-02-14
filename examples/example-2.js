@@ -46,7 +46,7 @@ switch (mainFlag) {
         break;
 
     case "-cf":
-        if (commandLength > 2 && subFlags.length > 0) {
+        if (commandLength > 1 && subFlags.length > 0) {
             console.log("Executing config command by sub flag(s) \x1b[33m%s\x1b[0m...", subFlags);
         }
 
@@ -83,6 +83,7 @@ function showHelpInformation(optionList) {
 
     console.log("\nOPTIONS:");
     console.log(textOptions);
+
     console.log("\nSUB OPTIONS:");
     console.log(textSubOptions);
 }
