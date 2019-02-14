@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * The command line syntax
+ * The command line structure
  * $ command [option] [sub-option] [argument]
  *
  * An option has:
