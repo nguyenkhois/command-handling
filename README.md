@@ -20,7 +20,21 @@ This package is using for small app that is not has many complex features. You c
 `command-handling` help you to analyse the input command line. It catches the arguments that you may be waiting for then you decide what you want to do with the raw data after parsing.
 
 ## Command line structure
+The simple command line structure that is used in this package:
+
 `$ command [-option][--alias] [--sub-option] [argument]`
+
+* An option has only an alias.
+* An option has many sub options.
+* Use cases:
+    * `command` (only command without anything)
+    * `command [argument]`
+    * `command [-option][--alias]`
+    * `command [-option][--alias] [argument]`
+    * `command [-option][--alias] [--sub-option]`
+    * `command [-option][--alias] [--sub-option] [argument]`
+    * `command [--sub-option] [argument]`
+* View examples for [code-template-generator](https://www.npmjs.com/package/code-template-generator) to know more about use cases.
 
 ## Methods
 |Method|Argument|Description|
