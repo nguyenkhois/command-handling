@@ -9,6 +9,7 @@
  *  - Only an alias
  */
 
+ // const { Command } = require("command-handling");
 const { Command } = require("../");
 
 const command = new Command();
