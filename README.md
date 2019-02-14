@@ -95,7 +95,7 @@ const options = command.showOptions();
 console.log(options); // It returns an object array with all options
 ```
 
-View more examples on [GitHub](https://github.com/nguyenkhois/command-handling).
+View more examples on [here](https://github.com/nguyenkhois/command-handling).
 
 ## Thank you!
 Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.
