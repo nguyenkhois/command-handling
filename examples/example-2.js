@@ -64,8 +64,25 @@ function showVersion(){
 }
 
 function showHelpInformation(optionList) {
-    console.log("\nOPTIONS:");
+    let textOptions = "";
+    let textSubOptions = "";
+
     optionList.map((option) => {
-        console.log(`${option.flag}, \x1b[90m${option.alias}\x1b[0m\t${option.description}`);
+        textOptions += `${option.flag}, \x1b[90m${option.alias}\x1b[0m\t${option.description}\n`;
+
+        if (option.subFlags.length > 0) {
+            option.subFlags.map((subFlag, index) => {
+                if (index === 0) {
+                    textSubOptions += `${option.flag}`;
+                }
+
+                textSubOptions += `\t\x1b[90m${subFlag.flag}\x1b[0m\t${subFlag.description}\n`;
+            });
+        }
     });
+
+    console.log("\nOPTIONS:");
+    console.log(textOptions);
+    console.log("\nSUB OPTIONS:");
+    console.log(textSubOptions);
 }

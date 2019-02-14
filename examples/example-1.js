@@ -16,12 +16,14 @@ const command = new Command();
 
 command
     .option("-g", "--git", "Run git init and generate a .gitignore file")
+    .option("-g", "--git", "Run git init and generate a .gitignore file") // Duplicate testing
     .option("-v", "--version", "View the installed version")
     .option("-help", "--help", "View the help information")
     .option("-cf", "--config", "Config for this app")
     .option("-m", "--my-asset", "Retrieve assets from a specific directory")
     .subOption("-g", "--no-install", "No install dependencies")
     .subOption("-cf", "--set-asset", "Store the asset directory path")
+    .subOption("-cf", "--view-asset", "View the asset directory path") // Duplicate testing
     .subOption("-cf", "--view-asset", "View the asset directory path");
 
 const result = command.parse(process.argv);
