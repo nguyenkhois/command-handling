@@ -46,9 +46,12 @@ The simple command line structure that is used in this package:
 
 ## Data structures
 
-An object is returned when you call method `.parse(process.argv)`. You need this object for your coding. View [example](#example) for more detail.
+![Command structure](./assets/command-structure.png)
+
+1. An object is returned when you call method `.parse(process.argv)`. You need this object for your coding. View [example](#example) for more detail.
+
 ```
-{
+{   // Result structure
     mainFlag: null,
     subFlags: [],
     argument: null,
@@ -57,7 +60,8 @@ An object is returned when you call method `.parse(process.argv)`. You need this
 }
 ```
 
-An array is returned when you call method `.showOptions()`. You may want to have the option list for your help function.
+2. An array is returned when you call method `.showOptions()`. You may want to have the option list for your help function.
+
 ```
 [   // All options
     {   // Option 1
@@ -87,10 +91,10 @@ An array is returned when you call method `.showOptions()`. You may want to have
 * Step 3: You can use method chaining for `command` object.
     * Option definition: `.option(<flag>, [alias], [description])`
     * Sub option definition: `.subOption(<mainFlag>, <subFlag>, [description])`
-* Step 4: `.parse(process.argv)` -> It is in the the end of chaining.
-    * You can use also `const result = command.parse(process.argv)`. It returns an object after parsing. You need this object for your coding.
+* Step 4: `.parse(process.argv)` -> It is in the the end of chaining. You can use also this way:
+    * `const result = command.parse(process.argv)` -> It returns an object after parsing. You need this object for your coding.
 * Extra: Using method `.showOptions()` to get back all options are defined above for your help function.
-    * Example: `const options = command.showOptions()`
+    * Example: `const optionList = command.showOptions()`
 
 ## Example
 
@@ -106,12 +110,12 @@ command
     .subOption("-cf", "--view-asset", "View the asset directory path")
     .parse(process.argv);
 
-const options = command.showOptions();
+const optionList = command.showOptions();
 
-console.log(options); // It returns an object array with all options
+console.log(optionList); // It returns an array with all defined options
 ```
 
-View more examples on [here](https://github.com/nguyenkhois/command-handling).
+View more examples on [here](https://github.com/nguyenkhois/command-handling/tree/master/examples).
 
 ## Thank you!
 Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.

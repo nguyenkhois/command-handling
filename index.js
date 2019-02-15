@@ -32,6 +32,8 @@ Command.prototype.option = function (flag, alias, description) {
     if (flagIndex === -1) {
         const newOption = new Option(flag, alias, description);
         this.options = this.options.concat([newOption]);
+    } else {
+        throw (new Error(`Duplicate main flag ${flag}`));
     }
 
     return this;
@@ -57,7 +59,11 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
                 "flag": subFlag,
                 "description": description
             }]);
+        } else {
+            throw (new Error(`Duplicate sub flag ${subFlag}`));
         }
+    } else {
+        throw (new Error(`Main flag ${mainFlag} is not defined yet`));
     }
 
     return this;
