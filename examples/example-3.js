@@ -25,31 +25,33 @@ command
     .subOption("-cf", "--view-asset", "View the asset directory path");
 
 //const result = command.parse(process.argv);
-const { mainFlag, subFlags, argument, commandLength } = command.parse(process.argv);
+const { mainFlag, subFlags, argument, commandLength, unknowns } = command.parse(process.argv);
 
 switch (mainFlag) {
     case "-g":
-        // Run command "node example-2.js -g something"
-        if (argument !== null) {
+        // Run command "node example-3.js -g something"
+        if (argument !== null && unknowns.length === 0) {
             console.log("Executing argument \x1b[33m%s\x1b[0m...", argument);
+        } else {
+            console.log("Unknown command");
         }
 
         break;
 
     case "-v":
-        // Run command "node example-2.js -v"
+        // Run command "node example-3.js -v"
         showVersion();
         break;
 
     case "-help":
-        // Run command "node example-2.js -help"
+        // Run command "node example-3.js -help"
         const optionList = command.showOptions();
         showHelpInformation(optionList);
 
         break;
 
     case "-cf":
-        // Run command "node example-2.js -cf --view-asset --set-asset
+        // Run command "node example-3.js -cf --view-asset
         if (commandLength > 1 && subFlags.length > 0) {
             console.log("Executing config command by sub flag(s) \x1b[33m%s\x1b[0m...", subFlags);
         }
