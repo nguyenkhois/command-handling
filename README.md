@@ -43,7 +43,7 @@ The simple command line structure that is used in this package:
 |---|---|---|
 |`.option()`|`<flag>, [alias], [description]`|Option definition|
 |`.subOption()`|`<mainFlag>, <subFlag>, description`|Sub option definition|
-|`.showOptions()`|-|It returns an options array|
+|`.showOptions()`|-|It returns an option list in an object array|
 |`.parse()`|`<process.argv>`|Parse the command line|
 
 ### Data structures
@@ -62,7 +62,7 @@ The simple command line structure that is used in this package:
 }
 ```
 
-2. An array is returned when you call method `.showOptions()`. You may want to have the option list for your help function.
+2. An object array is returned when you call method `.showOptions()`. You may want to have the option list for your help function.
 
 ```
 [   // All options
@@ -87,15 +87,18 @@ The simple command line structure that is used in this package:
 ]
 ```
 
-### Usage
-* Step 1: `const { Command } = require('command-handling');`
-* Step 2: `const command = new Command();`
-* Step 3: You can use method chaining for `command` object.
+## Using
+* Step 1: Import `Command` object from `command-handling` package.
+   * `const { Command } = require('command-handling');`
+* Step 2: Declare an object for your app. You decide its name.
+   * `const command = new Command();`
+* Step 3: You can use method chaining for your `command` object.
     * Option definition: `.option(<flag>, [alias], [description])`
     * Sub option definition: `.subOption(<mainFlag>, <subFlag>, [description])`
-* Step 4: `.parse(process.argv)` -> It is in the end of chaining. You can using another way:
-    * `const result = command.parse(process.argv);` -> It returns an object after parsing. You need this object for your coding.
-* Extra: Using method `.showOptions()` to get back all options are defined above for your help function.
+* Step 4: Parse the command line and this step is in the end of chaining. You have few ways to parse the command line:
+   * `.parse(process.argv);` -> End of method chaining.
+    * `const result = command.parse(process.argv);` -> Separate into a variable to get back an object that you need for your app development.
+* Extra: Using method `.showOptions()` to get back an option list are defined above for your help function.
     * Example: `const optionList = command.showOptions();`
 
 ## 3. Examples
