@@ -1,11 +1,5 @@
 'use strict';
 
-Array.prototype.findIndexByProperty = function (sPropertyName, sPropertyValue) {
-    try {
-        return this.findIndex(objItem => objItem[sPropertyName] === sPropertyValue);
-    } catch (err) { return err; }
-};
-
 // Option constructor
 function Option(flag, alias, description) {
     this.flag = flag;
@@ -72,7 +66,7 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
 Command.prototype.parse = function (processArgv) {
     // Error handling
     if (processArgv === undefined || processArgv === null || !Array.isArray(processArgv)) {
-        throw (new Error("Missing parameter: processArgv. It must be an array"));
+        throw (new Error("Missing parameter: processArgv. It must be an array of argument(s)"));
     }
 
     // Get all supported sub flags
@@ -88,10 +82,10 @@ Command.prototype.parse = function (processArgv) {
         }
     });
 
-    // Begin parse the command
+    // Begin parse the command line
     const commandArr = processArgv.slice(2, process.argv.length) || [];
     const commandLength = commandArr.length;
-    const defaultReturn = {
+    let defaultReturn = {
         mainFlag: null,
         subFlags: [],
         argument: null,
@@ -115,7 +109,7 @@ Command.prototype.parse = function (processArgv) {
                 commandArr[commandLength - 1] :
                 null;
 
-        // Functions
+        // Sub functions
         function storeUnknown(arg) {
             if (unknowns.indexOf(arg) === -1) {
                 unknowns = unknowns.concat([arg]);
@@ -139,25 +133,25 @@ Command.prototype.parse = function (processArgv) {
         // Process the first argument
         const identifiedFirstArg = optionIdentification(commandArr[0], this.options);
         if (identifiedFirstArg !== -1) {
-            // Check if the user has used alias flag '--'
-            // Alias is converted to main flag
+            /* Check if the user has used alias flag '--'
+                Alias is converted to main flag */
             mainFlag = identifiedFirstArg;
         } else if (supportedSubFlags.indexOf(commandArr[0]) > -1) {
-            // Check if it a sub flag
+            // Check if it is a sub flag
             if (subFlags.indexOf(commandArr[0]) === -1) {
                 subFlags = subFlags.concat([commandArr[0]]);
             }
         } else if (isLikeAnOption(commandArr[0])) {
-            // Check if the first argument has "-" character that is like an option
-            // but it is an unknown argument
+            /* Check if the first argument has "-" character that look like an option
+                but it is an unknown argument */
             storeUnknown(commandArr[0]);
         } else {
-            // Waiting for a clean argument
+            // Waiting for a clean argument here
             argument = commandArr[0];
         }
 
 
-        // Process the between argument
+        // Process the between arguments
         if (betweenArgument !== null && betweenArgument.length > 0) {
             betweenArgument.map((item) => {
                 if (supportedSubFlags.indexOf(item) > -1) {
@@ -173,16 +167,20 @@ Command.prototype.parse = function (processArgv) {
             if (supportedSubFlags.indexOf(lastArgument) > -1) {
                 storeSubFlag(lastArgument);
             } else if (commandLength > 1) {
-                // Check if the last argument has "-" like an option but it is an unknown argument
+                /* Check if the last argument has "-" that look like an option
+                    but it is an unknown argument */
                 if (isLikeAnOption(lastArgument)) {
                     storeUnknown(lastArgument);
                 } else {
                     argument = lastArgument;
                 }
             }
+        } else {
+            storeUnknown(lastArgument);
         }
 
-        // Filter the sub flags by main flag before return the result
+        /* Filter the sub flags by the main flag (if the main flag is found)
+            before return the end result */
         let filteredSubFlag = [];
         if (mainFlag !== null) {
             const optionIndex = this.options.findIndexByProperty("flag", mainFlag);
@@ -199,14 +197,13 @@ Command.prototype.parse = function (processArgv) {
             }
         }
 
-        return {
-            ...defaultReturn,
+        return Object.assign(defaultReturn, {
             "mainFlag": mainFlag,
             "subFlags": mainFlag !== null ? filteredSubFlag : subFlags,
             "argument": argument,
             "commandLength": commandLength,
             "unknowns": unknowns
-        };
+        });
     }
 
     return defaultReturn;
@@ -216,7 +213,13 @@ Command.prototype.showOptions = function () {
     return this.options;
 };
 
-// SUPPORT
+// Support functions
+Array.prototype.findIndexByProperty = function (sPropertyName, sPropertyValue) {
+    try {
+        return this.findIndex(objItem => objItem[sPropertyName] === sPropertyValue);
+    } catch (err) { return err; }
+};
+
 function optionIdentification(inputArg, optionArr) {
     const flagPosition = inputArg.indexOf("-");
     let howToFind = -1;
