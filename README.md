@@ -94,7 +94,7 @@ The simple command line structure that is used in this package:
     * Option definition: `.option(<flag>, [alias], [description])`
     * Sub option definition: `.subOption(<mainFlag>, <subFlag>, [description])`
 * Step 4: Parse the command and this step is in the end of chaining. You have few ways to parse the command:
-   * `.parse(process.argv);` -> End of method chaining
+   * `.parse(process.argv);` -> End of method chaining.
     * `const result = command.parse(process.argv);` -> Separate into a variable to get back an object that you need for your app development.
 * Extra: Using method `.showOptions()` to get back an option list are defined above for your help function.
     * Example: `const optionList = command.showOptions();`
