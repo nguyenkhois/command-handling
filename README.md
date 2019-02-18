@@ -4,6 +4,7 @@
 ## Table of contents
 1. [Introduction](#1-introduction)
 2. [How to use](#2-how-to-use)
+    * [Installation](#installation)
     * [Command line structure](#command-line-structure)
     * [Methods](#methods)
     * [Data structures](#data-structures)
@@ -21,6 +22,11 @@ You should be using `command-handling` for small app that is not has many comple
 `command-handling` help you to analyse the input command line. It catches the arguments that you may be waiting for then you decide what you want to do with the raw data after parsing.
 
 ## 2. How to use
+### Installation
+```
+$ npm install --save command-handling
+```
+
 ### Command line structure
 The simple command line structure that is used in this package:
 
