@@ -111,7 +111,7 @@ Command.prototype.parse = function (processArgv) {
 
         // Sub functions
         function storeUnknown(arg) {
-            if (unknowns.indexOf(arg) === -1) {
+            if (unknowns.indexOf(arg) === -1 && arg !== null) {
                 unknowns = unknowns.concat([arg]);
             }
         }
