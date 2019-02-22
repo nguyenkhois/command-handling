@@ -17,7 +17,7 @@ function Command() {
 Command.prototype.option = function (flag, alias, description) {
     // Error handling
     if (flag === undefined || flag === null || flag === "") {
-        throw (new Error("Missing parameter: flag"));
+        throw (new Error("Missing the parameter: flag"));
     }
 
     const flagIndex = this.options.findIndexByProperty("flag", flag);
@@ -27,7 +27,7 @@ Command.prototype.option = function (flag, alias, description) {
         const newOption = new Option(flag, alias, description);
         this.options = this.options.concat([newOption]);
     } else {
-        throw (new Error(`Duplicate main flag ${flag}`));
+        throw (new Error(`Duplicate the main flag ${flag}`));
     }
 
     return this;
@@ -36,9 +36,9 @@ Command.prototype.option = function (flag, alias, description) {
 Command.prototype.subOption = function (mainFlag, subFlag, description) {
     // Error handling
     if (mainFlag === undefined || mainFlag === null || mainFlag === "") {
-        throw (new Error("Missing parameter: mainFlag"));
+        throw (new Error("Missing the parameter: mainFlag"));
     } else if (subFlag === undefined || subFlag === null || subFlag === "") {
-        throw (new Error("Missing parameter: subFlag"));
+        throw (new Error("Missing the parameter: subFlag"));
     }
 
     const optionIndex = this.options.findIndexByProperty("flag", mainFlag);
@@ -54,10 +54,10 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
                 "description": description
             }]);
         } else {
-            throw (new Error(`Duplicate sub flag ${subFlag}`));
+            throw (new Error(`Duplicate the sub flag ${subFlag}`));
         }
     } else {
-        throw (new Error(`Main flag ${mainFlag} is not defined yet`));
+        throw (new Error(`The main flag ${mainFlag} is not defined yet`));
     }
 
     return this;
@@ -66,7 +66,7 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
 Command.prototype.parse = function (processArgv) {
     // Error handling
     if (processArgv === undefined || processArgv === null || !Array.isArray(processArgv)) {
-        throw (new Error("Missing parameter: processArgv. It must be an array of argument(s)"));
+        throw (new Error("Missing the parameter: processArgv. It must be an array of argument(s)"));
     }
 
     // Get all supported sub flags

@@ -15,11 +15,11 @@
 ## 1. Introduction
 ![How it works](./assets/howitworks.png)
 
-This is a lightweight tool that is using for Node.js CLI app. This package is also using for project [code-template-generator](https://www.npmjs.com/package/code-template-generator).
+This is a lightweight library that is using for Node.js CLI app. This package is also using for the project [code-template-generator](https://www.npmjs.com/package/code-template-generator).
 
-You should be using `command-handling` for small app that is not has many complex features. You can view [Commander.js](https://github.com/tj/commander.js) if you are thinking about a great Node.js CLI app.
+You should be using `command-handling` for a small CLI application that has not many complex features. You can view [Commander.js](https://github.com/tj/commander.js) if you are thinking about a great Node.js CLI application.
 
-`command-handling` help you to analyse the input command line. It catches the arguments that you may be waiting for then you decide what you want to do with the raw data after parsing.
+`command-handling` help you analyse an command line that entered by an end-user. It analyses the command line and catches arguments that you may be waiting for then you can decide what you want to do with the raw data after parsing.
 
 ## 2. How to use
 ### Installation
@@ -28,7 +28,7 @@ $ npm install --save command-handling
 ```
 
 ### Command line structure
-The simple command line structure that is used in this package:
+The simple command line structure that is used in this library:
 
 `$ command [-option][--alias] [--sub-option] [argument]`
 
@@ -52,14 +52,19 @@ The simple command line structure that is used in this package:
 |`.showOptions()`|-|It returns an option list in an object array|
 |`.parse()`|`<process.argv>`|Parse the command line|
 
+You can use method chaining for these methods:
+* `option`
+* `subOption`
+* `parse` <- This method must be in the end of chaining. View [examples](#3-examples) for more details.
+
 ### Data structures
 
 ![Command structure](./assets/command-structure.png)
 
-1. An object is returned when you call method `.parse(process.argv)`. You need this object for your coding. View [example](#example) for more detail.
+1. An object is returned when you call method `.parse(process.argv)`. You need this object for your coding. View [example](#3-examples) for more detail.
 
 ```
-{   // Result structure
+{   // The default result structure
     mainFlag: null,
     subFlags: [],
     argument: null,
@@ -68,21 +73,21 @@ The simple command line structure that is used in this package:
 }
 ```
 
-2. An object array is returned when you call method `.showOptions()`. You may want to have the option list for your help function.
+2. An object array is returned when you call method `.showOptions()`. You may want to have an option list for your help function.
 
 ```
 [   // All options
     {   // Option 1
-        flag: '',     // main flag
+        flag: '',     // It's mean the main flag
         alias: '',
         description: '',
         subFlags: [
             {
-                flag: '', // sub flag 1
+                flag: '', // Sub flag 1
                 description: ''
             },
             {
-                flag: '', // sub flag n
+                flag: '', // Sub flag n
                 description: ''
             }
         ]
@@ -93,7 +98,7 @@ The simple command line structure that is used in this package:
 ]
 ```
 
-## Using
+## Usage
 * Step 1: Import `Command` object from `command-handling` package.
    * `const { Command } = require('command-handling');`
 * Step 2: Declare an object for your app. You decide its name.
@@ -108,7 +113,7 @@ The simple command line structure that is used in this package:
     * Example: `const optionList = command.showOptions();`
 
 ## 3. Examples
-#### Example 1
+### Example 1
 
 ```
 const { Command } = require('command-handling');
@@ -127,7 +132,7 @@ const optionList = command.showOptions();
 console.log(optionList); // It returns an array with all defined options
 ```
 
-#### Example 2
+### Example 2
 
 ```
 const { Command } = require('command-handling');
@@ -171,4 +176,4 @@ function showHelpInformation(optionList){
 View more examples on [here](https://github.com/nguyenkhois/command-handling/tree/master/examples).
 
 ## 4. Thank you!
-Many thanks to [Commander.js](https://github.com/tj/commander.js) for inspiration.
+Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.
