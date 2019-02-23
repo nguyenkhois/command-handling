@@ -3,14 +3,14 @@
 
 ## Table of contents
 1. [Introduction](#1-introduction)
-2. [How to use](#2-how-to-use)
-    * [Installation](#installation)
+2. [Installation](#2-installation)
+3. [How to use](#3-how-to-use)
     * [Command line structure](#command-line-structure)
     * [Methods](#methods)
     * [Data structures](#data-structures)
     * [Usage](#usage)
-3. [Examples](#3-examples)
-4. [Thank you!](#4-thank-you)
+4. [Examples](#4-examples)
+5. [Thank you!](#5-thank-you)
 
 ## 1. Introduction
 ![How it works](./assets/howitworks.png)
@@ -21,12 +21,12 @@ You should be using `command-handling` for a small CLI application that has not 
 
 `command-handling` help you analyse a command line that entered by an end-user. It analyses the command line and catches the arguments that you may be waiting for then you decide what you want to do with the raw data after parsing.
 
-## 2. How to use
-### Installation
+## 2. Installation
 ```
 $ npm install --save command-handling
 ```
 
+## 3. How to use
 ### Command line structure
 The simple command line structure is used in this library:
 
@@ -58,7 +58,7 @@ You can use method chaining for these methods:
 * `subOption`
 * `parse` <- This method must be in the end of chaining.
 
-_Tip! View the [examples](#3-examples) for more details._
+_Tip! View the [examples](#4-examples) for more details._
 
 ### Data structures
 
@@ -101,7 +101,7 @@ _Tip! View the [examples](#3-examples) for more details._
 ]
 ```
 
-_Tip! View the [examples](#3-examples) for more detail._
+_Tip! View the [examples](#4-examples) for more detail._
 
 ## Usage
 * Step 1: Import the `Command` object from `command-handling` library.
@@ -117,7 +117,7 @@ _Tip! View the [examples](#3-examples) for more detail._
 * Extra: Using the method `.showOptions()` to get back an option list are defined above for your help function.
     * Example: `const optionList = command.showOptions();`
 
-## 3. Examples
+## 4. Examples
 ### Example 1
 
 ```
@@ -180,5 +180,5 @@ function showHelpInformation(optionList){
 
 View more the examples [here](https://github.com/nguyenkhois/command-handling/tree/master/examples).
 
-## 4. Thank you!
+## 5. Thank you!
 Many thanks to [Commander.js](https://github.com/tj/commander.js) for the inspiration.
