@@ -15,7 +15,7 @@
 ## 1. Introduction
 ![How it works](./assets/howitworks.png)
 
-This is a lightweight library that is using for Node.js CLI app. This library is also using for the project [code-template-generator](https://www.npmjs.com/package/code-template-generator).
+This is a lightweight library that is using for Node.js CLI applications. This library is also using for the project [code-template-generator](https://www.npmjs.com/package/code-template-generator).
 
 You should be using `command-handling` for a small CLI application that has not many complex features. You can view [Commander.js](https://github.com/tj/commander.js) if you are thinking about a great Node.js CLI application.
 
@@ -32,8 +32,8 @@ The simple command line structure is used in this library:
 
 `$ command [-option][--alias] [--sub-option] [argument]`
 
-* An option has only an alias.
-* An option has many sub options.
+* An option has only an alias (main flag).
+* An option has many sub options and they depend on the main flag is above.
 * Use cases:
     * `command` (only command without anything)
     * `command [argument]`
@@ -43,7 +43,7 @@ The simple command line structure is used in this library:
     * `command [-option][--alias] [--sub-option] [argument]`
     * `command [--sub-option] [argument]`
 
-__Tips!__ View the examples for [code-template-generator](https://www.npmjs.com/package/code-template-generator#5-examples) to know more about how I have used the library in another project.
+__Tips!__ View the examples for [code-template-generator](https://www.npmjs.com/package/code-template-generator#5-examples) to know more about how this library is used in another project.
 
 ### Methods
 |Method|Argument|Description|
@@ -64,7 +64,7 @@ _Tip! View the [examples](#4-examples) for more details._
 
 ![Command structure](./assets/command-structure.png)
 
-1. An object is returned when you call the method `.parse(process.argv)`. You need this object for your coding.
+__1. A object__ is returned when the method `.parse(process.argv)` is called. The object is needed for the application development.
 
 ```
 {   // The default result structure
@@ -75,8 +75,15 @@ _Tip! View the [examples](#4-examples) for more details._
     unknowns: []
 }
 ```
+* It depends on the `mainFlag` that may be found in the first position of the command line or not.
+    * `mainFlag` is found -> `subFlag` is an array of all sub flags that are found in the input command line and they depend on the `mainFlag`.
+    * `mainFlag` isn't found -> `subFlag` is an array of all sub flags that are found in the input command line and supported by the application.
+* `argument` is in the last position of the input command line.
+* `unknowns` is all things that `command-handling` can not analyze for a input command line.
 
-2. An object array is returned when you call the method `.showOptions()`. You may want to have an option list for your help function.
+View more the examples [here](https://github.com/nguyenkhois/command-handling/tree/master/examples).
+
+__2. An object array__ is returned when the method `.showOptions()` is called. It's helpful for a help function in a CLI application.
 
 ```
 [   // All options
@@ -108,13 +115,13 @@ _Tip! View the [examples](#4-examples) for more detail._
    * `const { Command } = require('command-handling');`
 * Step 2: Declare an object for your app. You decide its name.
    * `const command = new Command();`
-* Step 3: You can use method chaining for your `command` object. You define all your options and sub options in this step:
+* Step 3: You can use method chaining for the `command` object. You define all options and sub options in this step:
     * Option: `.option(<flag>, [alias], [description])`
     * Sub option: `.subOption(<mainFlag>, <subFlag>, [description])`
-* Step 4: Parse the command line and remember at this step is in the end of chaining. You have few ways to parse the command line:
+* Step 4: Parse the command line and remember at this step is in the end of chaining. There are few ways to parse the command line:
    * `.parse(process.argv);` -> End of method chaining.
-    * `const result = command.parse(process.argv);` -> Declare a separate variable to get back the result object that you need for your application.
-* Extra: Using the method `.showOptions()` to get back an option list are defined above for your help function.
+    * `const result = command.parse(process.argv);` -> Declare a separate variable to get back the result object that is needed for the application development.
+* Extra: Using the method `.showOptions()` to get back an option list are defined above for the help function.
     * Example: `const optionList = command.showOptions();`
 
 ## 4. Examples
