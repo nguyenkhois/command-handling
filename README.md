@@ -76,7 +76,7 @@ __1. A object__ is returned when the method `.parse(process.argv)` is called. Th
 }
 ```
 * It depends on the `mainFlag` that may be found in the first position of the command line or not.
-    * `mainFlag` is found -> `subFlag` is an array of all sub flags that are found in the input command line and they depend on the `mainFlag`.
+    * `mainFlag` is found -> `subFlag` is an array of all sub flags that are found in the input command line and they are filtered by the `mainFlag`.
     * `mainFlag` isn't found -> `subFlag` is an array of all sub flags that are found in the input command line and supported by the application.
 * `argument` is in the last position of the input command line.
 * `unknowns` is all things that `command-handling` can not analyze for a input command line.
