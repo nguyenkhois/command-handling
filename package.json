@@ -19,7 +19,7 @@
     "author": "Khoi Le",
     "license": "MIT",
     "devDependencies": {
-        "eslint": "^5.14.1"
+        "eslint": "^5.15.0"
     },
     "repository": {
         "type": "git",
