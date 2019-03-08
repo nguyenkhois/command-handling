@@ -1,6 +1,6 @@
 'use strict';
 
-// Option constructor
+// The Option constructor
 function Option(flag, alias, description) {
     this.flag = flag;
     this.alias = alias || "";
@@ -8,7 +8,7 @@ function Option(flag, alias, description) {
     this.subFlags = [];
 }
 
-// Command constructor
+// The Command constructor
 function Command() {
     this.options = [];
 }
@@ -34,7 +34,7 @@ Command.prototype.option = function (flag, alias, description) {
 };
 
 Command.prototype.subOption = function (mainFlag, subFlag, description) {
-    // Error handling
+    // Error handling is using for development
     if (mainFlag === undefined || mainFlag === null || mainFlag === "") {
         throw (new Error("Missing the parameter: mainFlag"));
     } else if (subFlag === undefined || subFlag === null || subFlag === "") {
@@ -149,7 +149,6 @@ Command.prototype.parse = function (processArgv) {
             // Waiting for a clean argument here
             argument = commandArr[0];
         }
-
 
         // Process the between arguments
         if (betweenArgument !== null && betweenArgument.length > 0) {
