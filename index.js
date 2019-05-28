@@ -16,8 +16,8 @@ function Command() {
 // Command prototypes
 Command.prototype.option = function (flag, alias, description) {
     // Error handling
-    if (flag === undefined || flag === null || flag === "") {
-        throw (new Error("Missing the parameter: flag"));
+    if (!flag) {
+        throw (new Error(`\x1b[31mMissing the parameter: flag\x1b[0m`));
     }
 
     const flagIndex = this.options.findIndexByProperty("flag", flag);
@@ -27,7 +27,7 @@ Command.prototype.option = function (flag, alias, description) {
         const newOption = new Option(flag, alias, description);
         this.options = this.options.concat([newOption]);
     } else {
-        throw (new Error(`Duplicate the main flag ${flag}`));
+        throw (new Error(`\x1b[31mDuplicate the main flag ${flag}\x1b[0m`));
     }
 
     return this;
@@ -35,10 +35,10 @@ Command.prototype.option = function (flag, alias, description) {
 
 Command.prototype.subOption = function (mainFlag, subFlag, description) {
     // Error handling is using for development
-    if (mainFlag === undefined || mainFlag === null || mainFlag === "") {
-        throw (new Error("Missing the parameter: mainFlag"));
-    } else if (subFlag === undefined || subFlag === null || subFlag === "") {
-        throw (new Error("Missing the parameter: subFlag"));
+    if (!mainFlag) {
+        throw (new Error(`\x1b[31mMissing the parameter: mainFlag\x1b[0m`));
+    } else if (!subFlag) {
+        throw (new Error(`\x1b[31mMissing the parameter: subFlag\x1b[0m`));
     }
 
     const optionIndex = this.options.findIndexByProperty("flag", mainFlag);
@@ -54,10 +54,10 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
                 "description": description
             }]);
         } else {
-            throw (new Error(`Duplicate the sub flag ${subFlag}`));
+            throw (new Error(`\x1b[31mDuplicate the sub flag ${subFlag}\x1b[0m`));
         }
     } else {
-        throw (new Error(`The main flag ${mainFlag} is not defined yet`));
+        throw (new Error(`\x1b[31mThe main flag ${mainFlag} is not defined yet\x1b[0m`));
     }
 
     return this;
@@ -65,8 +65,8 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
 
 Command.prototype.parse = function (processArgv) {
     // Error handling
-    if (processArgv === undefined || processArgv === null || !Array.isArray(processArgv)) {
-        throw (new Error("Missing the parameter: processArgv. It must be an array of argument(s)"));
+    if (!processArgv || !Array.isArray(processArgv)) {
+        throw (new Error(`\x1b[31mMissing the parameter: processArgv. It must be an array of argument(s)\x1b[0m`));
     }
 
     // Get all supported sub flags
@@ -151,7 +151,7 @@ Command.prototype.parse = function (processArgv) {
         }
 
         // Process the between arguments
-        if (betweenArgument !== null && betweenArgument.length > 0) {
+        if (betweenArgument && betweenArgument.length > 0) {
             betweenArgument.map((item) => {
                 if (supportedSubFlags.indexOf(item) > -1) {
                     storeSubFlag(item);
@@ -162,7 +162,7 @@ Command.prototype.parse = function (processArgv) {
         }
 
         // Process the last argument
-        if (argument === null && lastArgument !== null) {
+        if (!argument && lastArgument) {
             if (supportedSubFlags.indexOf(lastArgument) > -1) {
                 storeSubFlag(lastArgument);
             } else if (commandLength > 1) {
@@ -181,7 +181,7 @@ Command.prototype.parse = function (processArgv) {
         /* Filter the sub flags by the main flag (if the main flag is found)
             before return the end result */
         let filteredSubFlag = [];
-        if (mainFlag !== null) {
+        if (mainFlag) {
             const optionIndex = this.options.findIndexByProperty("flag", mainFlag);
             if (optionIndex > -1) {
                 const subFlagByMainFlag = this.options[optionIndex].subFlags;
@@ -198,7 +198,7 @@ Command.prototype.parse = function (processArgv) {
 
         return Object.assign(defaultReturn, {
             "mainFlag": mainFlag,
-            "subFlags": mainFlag !== null ? filteredSubFlag : subFlags,
+            "subFlags": mainFlag ? filteredSubFlag : subFlags,
             "argument": argument,
             "commandLength": commandLength,
             "unknowns": unknowns

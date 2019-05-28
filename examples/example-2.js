@@ -30,7 +30,7 @@ const { mainFlag, subFlags, argument, commandLength } = command.parse(process.ar
 switch (mainFlag) {
     case "-g":
         // Run command "node example-2.js -g something"
-        if (argument !== null) {
+        if (argument) {
             console.log("Executing argument \x1b[33m%s\x1b[0m...", argument);
         }
 
@@ -49,7 +49,7 @@ switch (mainFlag) {
         break;
 
     case "-cf":
-        // Run command "node example-2.js -cf --view-asset --set-asset
+        // Run command "node example-2.js -cf --view-asset --set-asset"
         if (commandLength > 1 && subFlags.length > 0) {
             console.log("Executing config command by sub flag(s) \x1b[33m%s\x1b[0m...", subFlags);
         }

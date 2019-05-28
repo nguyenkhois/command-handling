@@ -30,7 +30,7 @@ const { mainFlag, subFlags, argument, commandLength, unknowns } = command.parse(
 switch (mainFlag) {
     case "-g":
         // Run command "node example-3.js -g something"
-        if (argument !== null && unknowns.length === 0) {
+        if (argument && unknowns && unknowns.length === 0) {
             console.log("Executing argument \x1b[33m%s\x1b[0m...", argument);
         } else {
             console.log("Unknown command");
