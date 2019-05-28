@@ -1,6 +1,6 @@
 {
     "name": "command-handling",
-    "version": "1.0.5-alpha.1.0.0",
+    "version": "1.0.5-alpha.1.0.1",
     "description": "The lightweight Node.js command handling",
     "main": "index.js",
     "scripts": {
