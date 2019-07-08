@@ -15,7 +15,6 @@ function Command() {
 
 // Command prototypes
 Command.prototype.option = function (flag, alias, description) {
-    // Error handling
     if (!flag) {
         throw (new Error(`\x1b[31mMissing the parameter: flag\x1b[0m`));
     }
@@ -34,7 +33,6 @@ Command.prototype.option = function (flag, alias, description) {
 };
 
 Command.prototype.subOption = function (mainFlag, subFlag, description) {
-    // Error handling is using for development
     if (!mainFlag) {
         throw (new Error(`\x1b[31mMissing the parameter: mainFlag\x1b[0m`));
     } else if (!subFlag) {
@@ -64,7 +62,6 @@ Command.prototype.subOption = function (mainFlag, subFlag, description) {
 };
 
 Command.prototype.parse = function (processArgv) {
-    // Error handling
     if (!processArgv || !Array.isArray(processArgv)) {
         throw (new Error(`\x1b[31mMissing the parameter: processArgv. It must be an array of argument(s)\x1b[0m`));
     }
@@ -83,7 +80,7 @@ Command.prototype.parse = function (processArgv) {
     });
 
     // Begin parse the command line
-    const commandArr = processArgv.slice(2, process.argv.length) || [];
+    const commandArr = processArgv.slice(2);
     const commandLength = commandArr.length;
     let defaultReturn = {
         mainFlag: null,
@@ -123,11 +120,7 @@ Command.prototype.parse = function (processArgv) {
         }
 
         function isLikeAnOption(inputArg) {
-            if (inputArg.indexOf("-") === 0) {
-                return true;
-            }
-
-            return false;
+            return inputArg.charAt(0) === "-" ? true : false;
         }
 
         // Process the first argument
@@ -212,19 +205,18 @@ Command.prototype.showOptions = function () {
     return this.options;
 };
 
-// Support functions
+// Helpers
 Array.prototype.findIndexByProperty = function (sPropertyName, sPropertyValue) {
     try {
-        return this.findIndex(objItem => objItem[sPropertyName] === sPropertyValue);
+        return this.findIndex((objItem) => objItem[sPropertyName] === sPropertyValue);
     } catch (err) { return err; }
 };
 
 function optionIdentification(inputArg, optionArr) {
-    const flagPosition = inputArg.indexOf("-");
     let howToFind = -1;
 
-    if (flagPosition === 0) {
-        if (inputArg.indexOf("-", 1) === 1) {
+    if (inputArg.charAt(0) === "-") {
+        if (inputArg.charAt(1) === "-") {
             howToFind = 1; // Try to identify sub flag "--"
         } else {
             howToFind = 0; // Try to identify main flag "-"
@@ -235,7 +227,7 @@ function optionIdentification(inputArg, optionArr) {
 
     switch (howToFind) {
         case 0: // Find by main flag
-            const seekingMainFlag = optionArr.filter(objItem => objItem["flag"] === inputArg);
+            const seekingMainFlag = optionArr.filter((objItem) => objItem["flag"] === inputArg);
             if (seekingMainFlag.length > 0) {
                 return seekingMainFlag[0].flag;
             }
@@ -243,7 +235,7 @@ function optionIdentification(inputArg, optionArr) {
             break;
 
         case 1: // Find by sub flag
-            const seekingAliasFlag = optionArr.filter(objItem => objItem["alias"] === inputArg);
+            const seekingAliasFlag = optionArr.filter((objItem) => objItem["alias"] === inputArg);
             if (seekingAliasFlag.length > 0) {
                 return seekingAliasFlag[0].flag;
             }
