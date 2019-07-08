@@ -1,5 +1,7 @@
+.vs
 .vscode
 .idea
+.DS_Store
 
 .editorconfig
 .eslintignore
@@ -7,8 +9,6 @@
 package-lock.json
 
 node_modules
-*test*
-docs
 
+*test*
 example*
-/functions
